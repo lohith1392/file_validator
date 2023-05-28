@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>File Processing</title>
+    <style>
+        /* Styles for header and footer */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-buttons {
+            display: flex;
+        }
+
+        .header-buttons button {
+            margin-left: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .header-buttons button:active {
+            background-color: #3e874d;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* Styles for main section */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #FF0000;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .upload-form {
+            text-align: center;
+        }
+
+        .upload-input {
+            display: none;
+        }
+
+        .upload-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-label:hover {
+            background-color: #45a049;
+        }
+
+        .upload-label:active {
+            background-color: #3e874d;
+        }
+
+        .upload-button {
+            display: none;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background-color: #45a049;
+        }
+
+        .upload-button:active {
+            background-color: #3e874d;
+        }
+
+        /* Instructions styling */
+        .instructions {
+            margin-top: 20px;
+        }
+
+        .instructions h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h3>File Validator</h3>
+        </div>
+        <div class="header-buttons">
+            <button>Button 1</button>
+            <button>Button 2</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>File Processing</h1>
+        {% if error_messages %}
+        <h2>Errors occurred while processing the CSV file:</h2>
+        <ul>
+            {% for error in error_messages %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form class="upload-form" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="upload-label">
+                Select CSV File
+                <input class="upload-input" type="file" name="csv_file" />
+            </label>
+            <button class="upload-button" type="submit">Upload</button>
+        </form>
+
+        <div class="instructions">
+            <h2>Instructions:</h2>
+            <ul style="list-style-type:circle">
+                <li>Make sure the first column contains name in string.</li>
+                <li>Make sure the second column contains age in integer.</li>
+                <li>Make sure the third column contains email in string.</li>
+                <li>If any errors occur during the processing, they will be displayed above.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>©File Validator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const uploadInput = document.querySelector('.upload-input');
+            const uploadButton = document.querySelector('.upload-button');
+
+            uploadInput.addEventListener('change', function () {
+                if (uploadInput.value) {
+                    uploadButton.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
