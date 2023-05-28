@@ -1,3 +1,3 @@
-# File Vlaidation Example in Django 
+# File Validation Example in Django 
 
 
